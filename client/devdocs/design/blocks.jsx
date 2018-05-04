@@ -116,7 +116,7 @@ export default class AppComponents extends React.Component {
 					</HeaderCake>
 				) : (
 					<div>
-						<ReadmeViewer readmeFilePath="/client/blocks/README.md" />
+						<ReadmeViewer readmeFilePath="/client/devdocs/blocks/README.md" />
 						<SearchCard
 							onSearch={ this.onSearch }
 							initialValue={ this.state.filter }
