@@ -95,3 +95,24 @@ export function recordShowMoreResults( searchQuery, pageNumber, section ) {
 		} )
 	);
 }
+
+export function recordFilterReset( filters, keysToReset, section ) {
+	return composeAnalytics(
+		recordGoogleEvent( 'Domain Search', 'Reset Filters' ),
+		recordTracksEvent( 'calypso_domain_search_reset_filters', {
+			filters,
+			keys_to_reset: keysToReset,
+			section,
+		} )
+	);
+}
+
+export function recordFilterSubmit( filters, section ) {
+	return composeAnalytics(
+		recordGoogleEvent( 'Domain Search', 'Reset Filters' ),
+		recordTracksEvent( 'calypso_domain_search_reset_filters', {
+			filters,
+			section,
+		} )
+	);
+}
