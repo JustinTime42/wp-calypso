@@ -11,34 +11,34 @@ import page from 'page';
  */
 import config from 'config';
 import meController from 'me/controller';
-import * as controller from './controller';
+import {
+	accountRecovery,
+	connectedApplications,
+	password,
+	socialLogin,
+	twoStep,
+} from './controller';
 import { makeLayout, render as clientRender } from 'controller';
 
 export default function() {
-	page( '/me/security', meController.sidebar, controller.password, makeLayout, clientRender );
+	page( '/me/security', meController.sidebar, password, makeLayout, clientRender );
 
 	if ( config.isEnabled( 'signup/social-management' ) ) {
 		page(
 			'/me/security/social-login',
 			meController.sidebar,
-			controller.socialLogin,
+			socialLogin,
 			makeLayout,
 			clientRender
 		);
 	}
 
-	page(
-		'/me/security/two-step',
-		meController.sidebar,
-		controller.twoStep,
-		makeLayout,
-		clientRender
-	);
+	page( '/me/security/two-step', meController.sidebar, twoStep, makeLayout, clientRender );
 
 	page(
 		'/me/security/connected-applications',
 		meController.sidebar,
-		controller.connectedApplications,
+		connectedApplications,
 		makeLayout,
 		clientRender
 	);
@@ -46,7 +46,7 @@ export default function() {
 	page(
 		'/me/security/account-recovery',
 		meController.sidebar,
-		controller.accountRecovery,
+		accountRecovery,
 		makeLayout,
 		clientRender
 	);
