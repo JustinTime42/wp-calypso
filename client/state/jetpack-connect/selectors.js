@@ -11,6 +11,7 @@ import { get, includes } from 'lodash';
 import { AUTH_ATTEMPS_TTL } from './constants';
 import { getSiteByUrl } from 'state/sites/selectors';
 import { isStale } from './utils';
+import { getInitialQueryArguments } from 'state/selectors/get-initial-query-arguments';
 
 export const getJetpackSiteByUrl = ( state, url ) => {
 	const site = getSiteByUrl( state, url );
@@ -95,4 +96,15 @@ export const hasExpiredSecretError = function( state ) {
 		!! get( authorizeData, 'authorizationCode', false ) &&
 		includes( get( authorizeData, [ 'authorizeError', 'message' ] ), 'verify_secrets_expired' )
 	);
+};
+
+/**
+ * Returns the partner_id query param if present or null.
+ *
+ * @param {object}    state Global state tree
+ * @return {null|int}       The partner ID as an integer or null
+ */
+export const getPartnerIdFromQuery = function( state ) {
+	const partnerId = get( getInitialQueryArguments( state ), 'partner_id', false );
+	return !! partnerId ? parseInt( partnerId, 10 ) : null;
 };

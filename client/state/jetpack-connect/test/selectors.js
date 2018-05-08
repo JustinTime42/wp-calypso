@@ -12,6 +12,7 @@ import {
 	hasExpiredSecretError,
 	hasXmlrpcError,
 	isRemoteSiteOnSitesList,
+	getPartnerIdFromQuery,
 } from '../selectors';
 
 describe( 'selectors', () => {
@@ -432,6 +433,45 @@ describe( 'selectors', () => {
 
 			const trueState = makeUserAlreadyConnectedState( true );
 			expect( getUserAlreadyConnected( trueState ) ).toBe( true );
+		} );
+	} );
+
+	describe( '#getPartnerIdFromQuery', () => {
+		test( 'should return null when no argument', () => {
+			expect( getPartnerIdFromQuery() ).toBeNull();
+		} );
+
+		test( 'should return null if no partner_id query present', () => {
+			const state = {
+				ui: {
+					route: {
+						query: {
+							initial: {
+								email_address: 'user@wordpress.com',
+							},
+						},
+					},
+				},
+			};
+			expect( getPartnerIdFromQuery( state ) ).toBeNull();
+		} );
+
+		test( 'should return partner ID as integer when partner_id query present', () => {
+			const state = {
+				ui: {
+					route: {
+						query: {
+							initial: {
+								email_address: 'user@wordpress.com',
+								partner_id: 49640,
+							},
+						},
+					},
+				},
+			};
+
+			// toBe is a strict equality check here.
+			expect( getPartnerIdFromQuery( state ) ).toBe( 49640 );
 		} );
 	} );
 } );
